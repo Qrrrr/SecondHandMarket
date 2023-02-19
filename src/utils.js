@@ -1,5 +1,7 @@
-export const login = (credential) => {
-    const loginUrl = `/login?username=${credential.username}&password=${credential.password}`;
+import { BASE_URL } from "./constants";
+
+export const login = (props) => {
+    const loginUrl = `${BASE_URL}/login?username=&password`;
   
     return fetch(loginUrl, {
       // fetch -> window 提供的函数， 命令浏览器发送http请求
@@ -8,7 +10,6 @@ export const login = (credential) => {
         // request header
         "Content-Type": "application/json",
       },
-      credentials: "include", // when sending request, 带session id的cookies，验证
     }).then((response) => {
       // fetch return ohject, which has .then method
       if (response.status < 200 || response.status >= 300) {
@@ -17,7 +18,7 @@ export const login = (credential) => {
     });
   }; //fetch().then(), 要等response回来后再执行，所以不能分开写
   
-  export const signup = (data) => {
+export const signup = (data) => {
     const signupUrl = "/signup";
   
     return fetch(signupUrl, {
@@ -58,7 +59,6 @@ export const login = (credential) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     }).then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw Error("Fail to add menu item to shopping cart");

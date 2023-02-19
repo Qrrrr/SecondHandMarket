@@ -1,40 +1,84 @@
 import{ useState } from 'react';
+import { BASE_URL, TOKEN_KEY } from "../constants";
 import React, { Component, createRef } from "react";
 import { Modal, Button, message } from "antd";
 import { PostForm } from "./PostForm";
 
 
-const CreatePostButton = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
+class CreatePostButton extends Component {
 
-    const showModal = () => {
-      setIsModalOpen(true);
+    state = {
+      isModalOpen: false,
+      confirmLoading: false,
+    };
+
+    showModal = () => {
+      this.setState({
+        isModalOpen: true,
+      });
     };
   
-    const handleOk = () => {
-      setIsModalOpen(false);
+    handleOk = () => {
+      this.setState({
+        confirmLoading: true
+      });
+      this.postForm
+        .validateFields()
+        .then((form) => {
+          const { description, uploadPost } = form;
+          console.log(form);
+          const { type, originFileObj } = uploadPost[0];
+          const postType = type.match(/^(image)/g)[0];
+          this.setState({
+            isModalOpen: false
+          });
+          // if (postType) {
+          //   let formData = new FormData();
+          //   formData.append("message", description);
+          //   formData.append("media_file", originFileObj);
+   
+          //   const opt = {
+          //     method: "POST",
+          //     url: `${BASE_URL}/upload`,
+          //     headers: {
+          //       Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+          //     },
+          //     data: formData
+          //   };
+   
+            
+          // }
+        })
+      
+     };
+
+   
+    handleCancel = () => {
+      console.log("Clicked cancel button");
+      this.setState({
+        isModalOpen: false
+      });
     };
-  
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
-  
+
+    render() {
+      const { isModalOpen, confirmLoading } = this.state;
+
     return (
       <>
-        <Button shape="circle" onClick={showModal}>
+        <Button shape="circle" onClick={this.showModal}>
           SELL
         </Button>
         <Modal 
             title="Sell New Item" 
             open={isModalOpen} 
-            onOk={handleOk} 
+            onOk={this.handleOk} 
             okText="Create"
-            onCancel={handleCancel}>
-          <PostForm/>
+            onCancel={this.handleCancel}>
+          <PostForm ref={(refInstance) => (this.postForm = refInstance)}/>
         </Modal>
       </>
     )
+  }
 }
 
 export default CreatePostButton;

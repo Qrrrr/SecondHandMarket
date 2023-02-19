@@ -31,7 +31,7 @@ export const PostForm = forwardRef((props, formRef) => {
              <Select
 
              >
-                <Option value="Home"> Home & Garden </Option>
+                <Option value="HomeGarden"> Home & Garden </Option>
                 <Option value="Electronics"> Electronics </Option>
                 <Option value="Clothes"> Clothes </Option>
                 <Option value="Sporting"> Sporting Goods </Option>
@@ -41,7 +41,7 @@ export const PostForm = forwardRef((props, formRef) => {
              </Select>
             </Form.Item>
             <Form.Item
-                name="Contact Info"
+                name="ContactInfo"
                 label="Contact Info"
                 rules={[
                     {
@@ -53,7 +53,7 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="Item Name"
+                name="ItemName"
                 label="Item Name"
                 rules={[
                     {
@@ -65,8 +65,8 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="Item Price"
-                label="Item price"
+                name="ItemPrice"
+                label="Item Price"
                 rules={[
                     {
                         required: true,
@@ -79,7 +79,7 @@ export const PostForm = forwardRef((props, formRef) => {
             </Form.Item>
             <Form.Item
                 name="description"
-                label="Item description"
+                label="Item Description"
                 rules={[
                     {
                         required: true,
@@ -90,7 +90,7 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="Zip Code"
+                name="ZipCode"
                 label="Zip Code"
                 rules={[
                     {
