@@ -1,4 +1,11 @@
 @import "~antd/dist/antd.css";
+@import "./styles/TopBar.css";
+@import "./styles/Main.css";
+@import "./styles/Login.css";
+@import "./styles/Register.css";
+@import "./styles/Home.css";
+@import "./styles/SearchBar.css";
+@import "./styles/Profile.css";
 
 body {
   margin: 0;

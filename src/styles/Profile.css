@@ -1,0 +1,7 @@
+.home {
+    width: 1100px;
+}
+.postImage {
+    height: 200px;
+    object-fit: scale-down;
+}
