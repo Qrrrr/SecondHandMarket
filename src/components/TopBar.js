@@ -15,8 +15,6 @@ function TopBar(props) {
           {/* on click go to the home page, not handling logged in */}
         </Button>
       </Tooltip>
-      <img src={logo} className="App-logo" alt="logo" />
-
       <div className="App-title">Second Hand Web</div>
 
       {/*to home page */}
@@ -33,7 +31,7 @@ function TopBar(props) {
       </Tooltip>
       {/** */}
       <CreatePostButton/>
-      <MyCart />
+      {/* <MyCart /> */}
     </header>
   );
 }
