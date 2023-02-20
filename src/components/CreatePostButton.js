@@ -25,29 +25,34 @@ class CreatePostButton extends Component {
       this.postForm
         .validateFields()
         .then((form) => {
-          const { description, uploadPost } = form;
+          const { Category, ContactInfo, ItemName, ItemPrice, description, ZipCode, uploadPost } = form;
           console.log(form);
           const { type, originFileObj } = uploadPost[0];
           const postType = type.match(/^(image)/g)[0];
           this.setState({
             isModalOpen: false
           });
-          // if (postType) {
-          //   let formData = new FormData();
-          //   formData.append("message", description);
-          //   formData.append("media_file", originFileObj);
+           if (postType) {
+             let formData = new FormData();
+             formData.append("category", Category);
+             formData.append("contact", ContactInfo);
+             formData.append("name", ItemName);
+             formData.append("price", ItemPrice);
+             formData.append("details", description);
+             formData.append("zip", ZipCode);
+             formData.append("media_file", originFileObj);
    
-          //   const opt = {
-          //     method: "POST",
-          //     url: `${BASE_URL}/upload`,
-          //     headers: {
-          //       Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
-          //     },
-          //     data: formData
-          //   };
+             const opt = {
+               method: "POST",
+               url: `${BASE_URL}/upload`,
+               headers: {
+                 Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+               },
+               data: formData
+             };
    
             
-          // }
+           }
         })
       
      };
