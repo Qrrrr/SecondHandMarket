@@ -19,7 +19,7 @@ export const PostForm = forwardRef((props, formRef) => {
     return (
         <Form name="validate_other" {...formItemLayout} ref={formRef}>
             <Form.Item
-                name="Category"
+                name="category"
                 label="Category"
                 rules={[
                     {
@@ -41,7 +41,7 @@ export const PostForm = forwardRef((props, formRef) => {
              </Select>
             </Form.Item>
             <Form.Item
-                name="ContactInfo"
+                name="contactInfo"
                 label="Contact Info"
                 rules={[
                     {
@@ -53,7 +53,7 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="ItemName"
+                name="itemName"
                 label="Item Name"
                 rules={[
                     {
@@ -65,7 +65,7 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="ItemPrice"
+                name="itemPrice"
                 label="Item Price"
                 rules={[
                     {
@@ -90,7 +90,7 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="ZipCode"
+                name="zipCode"
                 label="Zip Code"
                 rules={[
                     {

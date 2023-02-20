@@ -31,7 +31,7 @@ function TopBar(props) {
       </Tooltip>
       {/** */}
       <CreatePostButton/>
-      {/* <MyCart /> */}
+      <MyCart />
     </header>
   );
 }

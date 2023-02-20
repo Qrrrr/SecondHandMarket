@@ -15,6 +15,7 @@
   .App-title {
     flex: 1;
     text-align: left;
+    margin-left: 20px;
     font-weight: bold;
     font-size: 17px;
     color: #eef4f6;
