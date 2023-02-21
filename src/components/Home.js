@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Tabs, message, Row, Col, Button } from "antd";
 import axios from "axios";
-import Profile from "./Profile";
+import ProductList from "./ProductList";
 
 import { SEARCH_KEY, BASE_URL, TOKEN_KEY } from "../constants";
 import SearchBar from "./SearchBar";
@@ -11,10 +11,12 @@ function Home(props) {
   {
     /**edit by linghongfei */
   }
-  return <div className="home">
-    <SearchBar/>
-    <Profile/>
-  </div>;
+  return (
+    <div className="home">
+      <SearchBar />
+      <ProductList />
+    </div>
+  );
   {
     /** */
   }
