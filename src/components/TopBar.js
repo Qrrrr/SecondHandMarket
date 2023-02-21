@@ -3,7 +3,6 @@ import MyCart from "./MyCart";
 import { Button, Tooltip, Space } from "antd";
 import logo from "../assets/images/logo.svg";
 import CreatePostButton from "./CreatePostButton";
-// import dimage from "../assets/images/dimage.svg"
 import { LogoutOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
 
 function TopBar(props) {
@@ -29,7 +28,6 @@ function TopBar(props) {
           onClick={handleLogout}
         ></Button>
       </Tooltip>
-      {/** */}
       <CreatePostButton/>
       <MyCart />
     </header>
