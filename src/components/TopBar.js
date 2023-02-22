@@ -1,19 +1,23 @@
 import React from "react";
 import MyCart from "./MyCart";
+import { Link, useHistory } from "react-router-dom";
 import { Button, Tooltip, Space, Dropdown} from "antd";
-import logo from "../assets/images/logo.svg";
 import CreatePostButton from "./CreatePostButton";
-import { LogoutOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
+import { UserOutlined, HomeOutlined } from "@ant-design/icons";
+
 
 function TopBar(props) {
   const { isLoggedIn, handleLogout, handleLoggedIn } = props;
+  const history = useHistory();
   
   // the following items are the options showing up when move to the icon of the user
   const items = [
     {
       key: '1',
       label: (
-        <a href="/home">Profile</a>
+        <>
+          <Link to="/profile">Profile</Link>
+        </>
       ),
     },
 
@@ -27,11 +31,18 @@ function TopBar(props) {
   return (
     <header className="App-header">
       <Tooltip title="Home">
-        <Button shape="circle" icon={<HomeOutlined />} onClick={handleLoggedIn}>
+        <Button shape="circle" 
+            icon={<HomeOutlined />} 
+            onClick={() => {
+            history.push("/home");
+          }}>
           {/* on click go to the home page, not handling logged in */}
         </Button>
       </Tooltip>
-      <div className="App-title">Second Hand Web</div>
+      
+      <div className="App-title">
+        <a href="/home">Second Hand Web</a>
+      </div>
 
       {/*to home page */}
 

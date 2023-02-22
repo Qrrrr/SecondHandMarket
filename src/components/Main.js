@@ -4,6 +4,8 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 import ProductDetail from "./ProductDetail";
+import UserProfile from "./UserProfile";
+
 function Main(props) {
   /* edit by linghongfei*/
   const { isLoggedIn, handleLoggedIn } = props;
@@ -18,6 +20,18 @@ function Main(props) {
     return isLoggedIn ? <Home /> : <Redirect to="/login" />;
   };
 
+  const showProfile = () => {
+    return isLoggedIn ? (
+      <UserProfile />
+    ) : (
+      <Redirect to="/login"/>
+    );
+  }
+  const showProductDetail = () => {
+    console.log(`Main showProductDetail ${isLoggedIn}`);
+    return isLoggedIn ? <ProductDetail /> : <Redirect to="/login" />;
+    };
+
   return (
     <div className="main">
       <Switch>
@@ -25,9 +39,8 @@ function Main(props) {
         <Route path="/login" render={showLogin} />
         <Route path="/register" component={Register} />
         <Route path="/home" render={showHome} />
-        <Route path="/products/:productId">
-          <ProductDetail />
-        </Route>
+        <Route path="/products/:productId" render={showProductDetail} />
+        <Route path="/profile" render={showProfile}/>
       </Switch>
     </div>
   );

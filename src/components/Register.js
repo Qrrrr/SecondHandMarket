@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input, Button, message } from 'antd';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import { BASE_URL } from "../constants";
 
@@ -124,6 +125,7 @@ function Register(props) {
              <Button type="primary" htmlType="submit" className="register-btn">
                  Register
              </Button>
+             Or <Link to="/login">Login now!</Link>
          </Form.Item>
      </Form>
  );
