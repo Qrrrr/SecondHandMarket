@@ -4,10 +4,12 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 import ProductDetail from "./ProductDetail";
+
 function Main(props) {
   /* edit by linghongfei*/
   const { isLoggedIn, handleLoggedIn } = props;
   const showLogin = () => {
+    console.log(`Main showLoging ${isLoggedIn}`);
     return isLoggedIn ? (
       <Redirect to="/home" />
     ) : (
@@ -15,7 +17,13 @@ function Main(props) {
     );
   };
   const showHome = () => {
+    console.log(`Main showHome ${isLoggedIn}`);
     return isLoggedIn ? <Home /> : <Redirect to="/login" />;
+  };
+
+  const showProductDetail = () => {
+    console.log(`Main showProductDetail ${isLoggedIn}`);
+    return isLoggedIn ? <ProductDetail /> : <Redirect to="/login" />;
   };
 
   return (
@@ -25,9 +33,7 @@ function Main(props) {
         <Route path="/login" render={showLogin} />
         <Route path="/register" component={Register} />
         <Route path="/home" render={showHome} />
-        <Route path="/products/:productId">
-          <ProductDetail />
-        </Route>
+        <Route path="/products/:productId" render={showProductDetail} />
       </Switch>
     </div>
   );

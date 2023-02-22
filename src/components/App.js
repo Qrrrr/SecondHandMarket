@@ -12,7 +12,7 @@ function App() {
   );
 
   const logout = () => {
-    console.log("log out");
+    console.log("App log out");
     localStorage.removeItem(TOKEN_KEY);
     setIsLoggedIn(false);
   };
@@ -23,6 +23,7 @@ function App() {
       setIsLoggedIn(true);
     }
   };
+
   return (
     <div className="App">
       {/**edit by linghongfei */}
