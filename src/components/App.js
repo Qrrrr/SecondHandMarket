@@ -5,11 +5,19 @@ import ProductList from "./ProductList";
 import SearchBar from "./SearchBar";
 import Main from "./Main";
 import { TOKEN_KEY } from "../constants";
+import { Redirect, Link } from "react-router-dom";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem(TOKEN_KEY) ? true : false
   );
+  // we want to know the email of the user for other operations, so keep a userEmail constant here
+  // and set the email in the login component;
+  const [userEmail, setUserEmail] = useState("")
+  const userEmailSet = (e) => {
+    setUserEmail(e);
+    console.log(userEmail);
+  }
 
   const logout = () => {
     console.log("log out");
@@ -31,7 +39,7 @@ function App() {
         handleLogout={logout}
         handleLoggedIn={loggedIn}
       />
-      <Main isLoggedIn={isLoggedIn} handleLoggedIn={loggedIn} />
+      <Main isLoggedIn={isLoggedIn} handleLoggedIn={loggedIn} handleUserEmail={userEmailSet}/>
       {/** */}
     </div>
   );

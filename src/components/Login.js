@@ -7,10 +7,11 @@ import axios from "axios";
 import { BASE_URL } from "../constants";
 
 function Login(props) {
-  const { handleLoggedIn } = props; 
+  const { handleLoggedIn, handleUserEmail } = props; 
 
   const onFinish = (values) => {
     const { username, password } = values;
+    handleUserEmail(username);
     const opt = {
       method: "POST",
       url: `${BASE_URL}/signin`,

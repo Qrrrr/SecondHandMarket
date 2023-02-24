@@ -1,4 +1,4 @@
-import { BASE_URL } from "./constants";
+import { TOKEN_KEY, BASE_URL, SEARCH_KEY } from "./constants";
 
 export const login = (props) => {
     const loginUrl = `${BASE_URL}/login?username=&password`;
@@ -36,7 +36,8 @@ export const signup = (data) => {
   
   
   export const getCart = () => {
-    return fetch("/cart").then((response) => {
+    const cartURL = `${BASE_URL}/cart`;
+    return fetch(cartURL).then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw Error("Fail to get shopping cart data");
       }
@@ -65,4 +66,29 @@ export const signup = (data) => {
       }
     });
   };
+
+  // provide search functions for distance, with keyword or maybe others
+export const searchPosts = (option) => {
+  const {type, input} = option;
+  let url = "";
+  if (type === SEARCH_KEY.distance) {
+    url = `${BASE_URL}/search?distance=${input}`;
+  } else if (type === SEARCH_KEY.keyword) {
+    url = `${BASE_URL}/search?keywords=${input}`;
+  }
+  const opt = {
+    method: "GET",
+    url: url,
+    header: {
+      Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+    }
+  }
+  return fetch(opt).then((res) => {
+      if (res.status < 200 || res.status >= 300) {
+        throw Error("Fail to get posts information");
+      }
+      return res.json();
+    });
+
+}
   

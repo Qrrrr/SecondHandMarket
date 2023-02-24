@@ -13,7 +13,6 @@ function Home(props) {
   }
   return (
     <div className="home">
-      <SearchBar />
       <ProductList />
     </div>
   );

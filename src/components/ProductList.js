@@ -1,23 +1,45 @@
 // fetch post
 import { useEffect, useState } from "react";
-import { Card, Row, Col, Typography } from "antd";
+import { Card, Row, Col, Typography, message, Space, Button } from "antd";
 import data from "../data";
-import axios, { Axios } from "axios";
+import SearchBar from "./SearchBar"
+import { addItemToCart, searchPosts } from "../utils";
+import { TOKEN_KEY, BASE_URL, SEARCH_KEY } from "../constants";
 
 const ProductList = () => {
   const [itemData, setItemData] = useState([]); // for search option
   const [loading, setLoading] = useState(false);
 
-  //   useEffect(() => {
-  //     Axios.post("后端api link").then((response) => {
-  //       if (response.data.success) {
-  //         setItemData(response.data.itemData);
-  //       } else {
-  //         alert("Failed to fetch item data");
-  //       }
-  //     });
-  //   }, []);
 
+  const [searchOption, setSearchOption] = useState({
+    type: SEARCH_KEY.all,
+    input: "",
+  });
+
+  // there are now two types of search, search by keyword or search by distance, 
+  // not sure if need to provide distance input for distance search
+  const handleSearch = (option) => {
+    const { type, input } = option;
+    setSearchOption({ type: type, input: input });
+  };
+
+    // useEffect(() => {
+    //   setLoading(true);
+    //   console.log('search')
+    //   searchPosts(searchOption)
+    //   .then((res) => {
+    //     setItemData(res);
+    //   })
+    //   .catch((err) => {
+    //     message.error(err.message);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
+    // }, [searchOption]);
+
+
+    // data will later be changed to itemData for real tests1
   const renderCards = data.map((item) => {
     // one row = 24, each col = 6
     // using lg, md, xs, the col size changes when users shrinks the screen
@@ -56,6 +78,10 @@ const ProductList = () => {
 
   return (
     <div style={{ width: "90%", margin: "3rem auto" }}>
+
+        <SearchBar handleSearch={handleSearch} />
+      <br></br>
+      <br></br>
       <div>
         <Row gutter={[16, 16]}>{renderCards} </Row>
       </div>

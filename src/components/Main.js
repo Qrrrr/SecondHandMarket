@@ -8,12 +8,12 @@ import UserProfile from "./UserProfile";
 
 function Main(props) {
   /* edit by linghongfei*/
-  const { isLoggedIn, handleLoggedIn } = props;
+  const { isLoggedIn, handleLoggedIn, handleUserEmail } = props;
   const showLogin = () => {
     return isLoggedIn ? (
       <Redirect to="/home" />
     ) : (
-      <Login handleLoggedIn={handleLoggedIn} />
+      <Login handleLoggedIn={handleLoggedIn} handleUserEmail={handleUserEmail}/>
     );
   };
   const showHome = () => {
