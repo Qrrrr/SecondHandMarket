@@ -2,15 +2,14 @@ import { Row, Col, Button, Descriptions, message } from "antd";
 import { React, useState } from "react";
 import { useParams } from "react-router-dom";
 import data from "../data";
-// import ImageGallery from "react-image-gallery";
+import { addItemToCart } from "../utils";
 
 const AddToCartButton = (itemId) => {
   const [loading, setLoading] = useState(false);
 
   const AddToCart = () => {
     setLoading(true);
-    setLoading(false);
-    // addItemToCart(itemId) // backend api
+    // addItemToCart(itemId)
     //   .then(() => message.success(`Successfully add item`))
     //   .catch((err) => message.error(err.message))
     //   .finally(() => {
@@ -24,16 +23,6 @@ const AddToCartButton = (itemId) => {
     </Button>
   );
 };
-
-// const ProductImage = (productImage) => {
-//   // can be change to image[] to display multiple images
-//   const image = [{ origin: productImage, thumbnail: productImage }];
-//   return (
-//     <div>
-//       <ImageGallery items={image} />
-//     </div>
-//   );
-// };
 
 const ProductDetail = () => {
   const { productId } = useParams(); // object of K/V from url

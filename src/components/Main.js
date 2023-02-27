@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch, Redirect } from "react-router";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
@@ -7,13 +7,12 @@ import ProductDetail from "./ProductDetail";
 import UserProfile from "./UserProfile";
 
 function Main(props) {
-  /* edit by linghongfei*/
-  const { isLoggedIn, handleLoggedIn, handleUserEmail } = props;
+  const { isLoggedIn, handleLoggedIn } = props;
   const showLogin = () => {
     return isLoggedIn ? (
       <Redirect to="/home" />
     ) : (
-      <Login handleLoggedIn={handleLoggedIn} handleUserEmail={handleUserEmail}/>
+      <Login handleLoggedIn={handleLoggedIn} />
     );
   };
   const showHome = () => {
@@ -21,16 +20,13 @@ function Main(props) {
   };
 
   const showProfile = () => {
-    return isLoggedIn ? (
-      <UserProfile />
-    ) : (
-      <Redirect to="/login"/>
-    );
-  }
+    console.log(`Main showProfile ${isLoggedIn}`);
+    return isLoggedIn ? <UserProfile /> : <Redirect to="/login" />;
+  };
   const showProductDetail = () => {
     console.log(`Main showProductDetail ${isLoggedIn}`);
     return isLoggedIn ? <ProductDetail /> : <Redirect to="/login" />;
-    };
+  };
 
   return (
     <div className="main">
@@ -40,7 +36,7 @@ function Main(props) {
         <Route path="/register" component={Register} />
         <Route path="/home" render={showHome} />
         <Route path="/products/:productId" render={showProductDetail} />
-        <Route path="/profile" render={showProfile}/>
+        <Route path="/profile" render={showProfile} />
       </Switch>
     </div>
   );
