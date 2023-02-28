@@ -6,6 +6,7 @@
 @import "./styles/Home.css";
 @import "./styles/SearchBar.css";
 @import "./styles/ProductList.css";
+@import "./styles/UserProfile.css";
 
 body {
   margin: 0;
