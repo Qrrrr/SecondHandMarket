@@ -3,12 +3,27 @@ import { useEffect, useState } from "react";
 import { Card, Row, Col, Typography, message, Space, Button } from "antd";
 import data from "../data";
 import SearchBar from "./SearchBar";
-import { addItemToCart, searchPosts } from "../utils";
+import { addItemToCart, getPost } from "../utils";
 import { SEARCH_KEY } from "../constants";
 import { Link } from "react-router-dom";
+
 const ProductList = () => {
   const [itemData, setItemData] = useState([]); // for search option
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getPost()
+      .then((data) => {
+        setItemData(data);
+      })
+      .catch((err) => {
+        message.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const [searchOption, setSearchOption] = useState({
     type: SEARCH_KEY.all,
@@ -37,7 +52,7 @@ const ProductList = () => {
   // }, [searchOption]);
 
   // data will later be changed to itemData for real tests1
-  const renderCards = data.map((item) => {
+  const renderCards = itemData.map((item) => {
     // one row = 24, each col = 6
     // using lg, md, xs, the col size changes when users shrinks the screen
     return (
@@ -49,7 +64,7 @@ const ProductList = () => {
               <img
                 style={{ width: "100%", height: "250px" }}
                 alt={item.catagories}
-                src={item.src}
+                src={item.image}
               />
             </Link>
           }
@@ -60,11 +75,12 @@ const ProductList = () => {
               <>
                 <Typography.Text strong>${item.price}</Typography.Text>
                 <Typography.Paragraph
+                  strong
                   ellipsis={{ rows: 1, expandable: true, symbol: "more" }}
                 >
-                  {item.description}
+                  {item.title}
                 </Typography.Paragraph>
-                <Typography.Text>Location: {item.postal_code}</Typography.Text>
+                <Typography.Text>Location: {item.zipcode}</Typography.Text>
               </>
             }
           />

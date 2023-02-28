@@ -1,20 +1,20 @@
 import { Row, Col, Button, Descriptions, message } from "antd";
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import data from "../data";
-import { addItemToCart } from "../utils";
+import { addItemToCart, getPost } from "../utils";
 
 const AddToCartButton = (itemId) => {
   const [loading, setLoading] = useState(false);
 
   const AddToCart = () => {
     setLoading(true);
-    // addItemToCart(itemId)
-    //   .then(() => message.success(`Successfully add item`))
-    //   .catch((err) => message.error(err.message))
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
+    addItemToCart(itemId)
+      .then(() => message.success(`Successfully add item`))
+      .catch((err) => message.error(err.message))
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -26,32 +26,45 @@ const AddToCartButton = (itemId) => {
 
 const ProductDetail = () => {
   const { productId } = useParams(); // object of K/V from url
-  const thisProduct = data.find((prod) => prod.id === productId);
-  const description = (thisProduct) => {
+  const [itemData, setItemData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getPost()
+      .then((posts) => {
+        const targetPost = posts.find((post) => post.id == productId);
+        setItemData(targetPost);
+      })
+      .catch((error) => console.log(error))
+      .finally(setLoading(false));
+  }, []);
+
+  const description = (itemData) => {
     return (
       <div>
-        <Descriptions title="Product Info">
+        <Descriptions title={itemData.title}>
           <Descriptions.Item label="Email" span={3}>
-            {thisProduct.email}
+            {itemData.email}
           </Descriptions.Item>
           <Descriptions.Item label="Price" span={3}>
-            ${thisProduct.price}
+            ${itemData.price}
           </Descriptions.Item>
-          <Descriptions.Item label="Postal Code" span={3}>
-            {thisProduct.postal_code}
+          <Descriptions.Item label="Zipcode" span={3}>
+            {itemData.zipcode}
           </Descriptions.Item>
-          <Descriptions.Item label="Status" span={3}>
-            {thisProduct.status}
+          <Descriptions.Item label="Quantity" span={3}>
+            {itemData.quantity}
           </Descriptions.Item>
           <Descriptions.Item label="Description" span={3}>
-            {thisProduct.description}
+            {itemData.description}
           </Descriptions.Item>
         </Descriptions>
         <br />
         <br />
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
-          {AddToCartButton(thisProduct.id)}
+          {AddToCartButton(itemData.id)}
         </div>
       </div>
     );
@@ -66,13 +79,13 @@ const ProductDetail = () => {
         <Col span={1}></Col>
         <Col span={10}>
           <img
-            src={thisProduct.src}
-            alt={thisProduct.catagories}
+            src={itemData.image}
+            alt={itemData.title}
             style={{ height: "100%", width: "100%", display: "block" }}
           />
         </Col>
         <Col span={2}></Col>
-        <Col span={10}>{description(thisProduct)}</Col>
+        <Col span={10}>{description(itemData)}</Col>
       </Row>
     </div>
   );
