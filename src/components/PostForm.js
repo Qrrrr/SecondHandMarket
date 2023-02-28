@@ -3,7 +3,6 @@ import { Form, Upload, Input, Select, Button } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 
 export const PostForm = forwardRef((props, formRef) => {
-    const { Option } = Select;
     const formItemLayout = {
     labelCol: { span: 6 },
         wrapperCol: { span: 14 }
@@ -24,36 +23,27 @@ export const PostForm = forwardRef((props, formRef) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please Select One Category!"
-                     }
-                ]}
-            >
-             <Select
-
-             >
-                <Option value="HomeGarden"> Home & Garden </Option>
-                <Option value="Electronics"> Electronics </Option>
-                <Option value="Clothes"> Clothes </Option>
-                <Option value="Sporting"> Sporting Goods </Option>
-                <Option value="Toys"> Toys </Option>
-                <Option value="Jewelry"> Jewelry & Watches </Option>
-                <Option value="Others"> Others </Option>
-             </Select>
-            </Form.Item>
-            <Form.Item
-                name="contactInfo"
-                label="Contact Info"
-                rules={[
-                    {
-                        required: true,
-                        message: "Please input your Contact Information!"
+                        message: "Please input one category for your item!"
                      }
                 ]}
             >
                 <Input />
             </Form.Item>
             <Form.Item
-                name="itemName"
+                name="quantity"
+                label="Item Quantity"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please input valid quantity numbers!",
+                        pattern: "^([1-9][0-9]*|0)$"
+                     }
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name="title"
                 label="Item Name"
                 rules={[
                     {
@@ -65,12 +55,12 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="itemPrice"
+                name="price"
                 label="Item Price"
                 rules={[
                     {
                         required: true,
-                        pattern: '^([1-9][0-9]*|0)$',
+                        pattern: "^[+]?\\d+(\\.{0,1}(\\d+?))?$",
                         message: "Please input a valid price!"
                      }
                 ]}
@@ -83,7 +73,7 @@ export const PostForm = forwardRef((props, formRef) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please input your item description!"
+                        message: "Please input your item description!(max 200)"
                      }
                 ]}
             >

@@ -111,3 +111,19 @@ export const getPost = () => {
     return response.json();
   });
 };
+
+export const createPost = (data) => {
+  const addPostUrl = "/addPost";
+
+  return fetch(addPostUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to post an item");
+    }
+  });
+};

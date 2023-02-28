@@ -3,6 +3,7 @@ import { BASE_URL, TOKEN_KEY } from "../constants";
 import React, { Component, createRef } from "react";
 import { Modal, Button, message } from "antd";
 import { PostForm } from "./PostForm";
+import { createPost } from "../utils";
 
 
 class CreatePostButton extends Component {
@@ -19,9 +20,6 @@ class CreatePostButton extends Component {
     };
   
     handleOk = () => {
-      this.setState({
-        confirmLoading: true
-      });
       this.postForm
         .validateFields()
         .then((form) => {
@@ -41,15 +39,20 @@ class CreatePostButton extends Component {
              formData.append("details", description);
              formData.append("zip", ZipCode);
              formData.append("media_file", originFileObj);
-   
-             const opt = {
-               method: "POST",
-               url: `${BASE_URL}/upload`,
-               headers: {
-                 Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
-               },
-               data: formData
-             };
+             formData.append("media_file", originFileObj);  
+             createPost(formData)
+              .then(() => {
+                message.success("Successfully post an item for sell!");
+              })
+              .catch((err) => {
+              message.error(err.message);
+              })
+              .finally(() => {
+                this.setState({
+                  confirmLoading: false,
+                  isModalOpen: false
+                });
+              });  
    
             
            }
