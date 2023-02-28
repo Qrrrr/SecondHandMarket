@@ -36,8 +36,7 @@ export const signup = (data) => {
 };
 
 export const getCart = () => {
-  const cartURL = `${BASE_URL}/cart`;
-  return fetch(cartURL).then((response) => {
+  return fetch("/cart").then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get shopping cart data");
     }
@@ -54,15 +53,15 @@ export const checkout = () => {
   });
 };
 
-export const addItemToCart = (itemId) => {
-  return fetch(`/order/${itemId}`, {
+export const addItemToCart = (postId) => {
+  return fetch(`/addtocart/${postId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
-      throw Error("Fail to add menu item to shopping cart");
+      throw Error("Fail to add item to shopping cart");
     }
   });
 };
@@ -92,14 +91,23 @@ export const searchPosts = (option) => {
 };
 
 export const deleteItemFromCart = (itemId) => {
-  return fetch(`/cart/${itemId}`, {
-    method: "GET",
+  return fetch(`/updatecart/${itemId}`, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
-      throw Error("Fail to add menu item to shopping cart");
+      throw Error("Fail to delete item in shopping cart");
     }
+  });
+};
+
+export const getPost = () => {
+  return fetch("/posts").then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to get all posts");
+    }
+    return response.json();
   });
 };
