@@ -119,3 +119,13 @@ export const createPost = (data) => {
     }
   });
 }
+
+export const searchUserPosts = () => {
+  const userPostUrl = "/user/fail1@gmail.com/post";
+  return fetch(userPostUrl).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to get user posts");
+    }
+    return response.json();
+  });
+}

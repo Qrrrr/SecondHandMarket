@@ -1,11 +1,28 @@
 import React from "react";
 import { Card, Row, Col, Typography, message, Space, Button } from "antd";
-import data from "../data";
 import { Link } from "react-router-dom";
 import { EditOutlined, EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
+import { useEffect, useState } from "react";
+import { searchUserPosts } from "../utils";
 
 function UserProfile() {
-    const renderCards = data.map((item) => {
+    const[itemData, setItemData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+      setLoading(true);
+      searchUserPosts()
+        .then((data) => {
+        setItemData(data);
+        })
+        .catch((err) => {
+          message.error(err.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+  }, [itemData]);
+  
+    const renderCards = itemData.map((item) => {
         // one row = 24, each col = 6
         // using lg, md, xs, the col size changes when users shrinks the screen
         return (
