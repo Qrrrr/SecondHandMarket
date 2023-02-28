@@ -80,12 +80,12 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name="zipCode"
+                name="zipcode"
                 label="Zip Code"
                 rules={[
                     {
                         required: true,
-                        pattern: '^([1-9][0-9]*|0)$',
+                        pattern: '^([0-9][0-9]*|0)$',
                         len: 5,
                         message: "Please input a valid Zip Code!"
                      }

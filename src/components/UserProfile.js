@@ -12,6 +12,7 @@ function UserProfile() {
       setLoading(true);
       searchUserPosts()
         .then((data) => {
+          console.log(data);
         setItemData(data);
         })
         .catch((err) => {
@@ -20,7 +21,7 @@ function UserProfile() {
         .finally(() => {
           setLoading(false);
         });
-  }, [itemData]);
+  }, []);
   
     const renderCards = itemData.map((item) => {
         // one row = 24, each col = 6

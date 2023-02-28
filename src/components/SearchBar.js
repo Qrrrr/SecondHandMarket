@@ -35,7 +35,7 @@ function SearchBar(props) {
         />
         <p className="error-msg">{error}</p>
         <Radio.Group
-            defaultValue={SEARCH_KEY.keyword}
+            // defaultValue={SEARCH_KEY.keyword}
             onChange={changeSearchType}
             value={searchType}
             className="search-type-group"

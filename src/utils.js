@@ -112,6 +112,7 @@ export const getPost = () => {
   });
 };
 
+
 export const createPost = (data) => {
   const addPostUrl = "/addPost";
 
@@ -120,6 +121,7 @@ export const createPost = (data) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify(data),
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
@@ -127,6 +129,7 @@ export const createPost = (data) => {
     }
   });
 }
+
 
 export const searchUserPosts = () => {
   const userPostUrl = "/user/fail1@gmail.com/post";
