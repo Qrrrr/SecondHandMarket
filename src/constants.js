@@ -3,5 +3,5 @@ export const BASE_URL = "";
 export const SEARCH_KEY = {
   all: 0,
   keyword: 1,
-  user: 2,
+  distance: 2,
 };

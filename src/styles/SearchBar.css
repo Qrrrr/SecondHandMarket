@@ -1,6 +1,10 @@
 .search-bar {
   width: 500px;
-  height: 50px;
+  height: 80px;
   margin: 0 auto;
   text-align: center;
+}
+
+.post-tab-select {
+  width: 90px;
 }

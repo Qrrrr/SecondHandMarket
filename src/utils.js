@@ -1,4 +1,4 @@
-import { TOKEN_KEY, BASE_URL, SEARCH_KEY } from "./constants";
+import { SEARCH_KEY } from "./constants";
 
 export const login = (credential) => {
   const loginUrl = `/login?username=${credential.username}&password=${credential.password}`;
@@ -68,23 +68,21 @@ export const addItemToCart = (postId) => {
 
 // provide search functions for distance, with keyword or maybe others
 export const searchPosts = (option) => {
-  const { type, input } = option;
+  const { type, input, distance } = option;
   let url = "";
   if (type === SEARCH_KEY.distance) {
-    url = `${BASE_URL}/search?distance=${input}`;
+    url = `/searchItem/listNearby/${input},${distance}`;
   } else if (type === SEARCH_KEY.keyword) {
-    url = `${BASE_URL}/search?keywords=${input}`;
+    url = `/products/search/${input}`;
+  } else if (type === SEARCH_KEY.all) {
+    url = `/posts`;
   }
-  const opt = {
-    method: "GET",
-    url: url,
-    header: {
-      Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
-    },
-  };
-  return fetch(opt).then((res) => {
-    if (res.status < 200 || res.status >= 300) {
-      throw Error("Fail to get posts information");
+
+  return fetch(url).then((res) => {
+    if (res.status === 204) {
+      return [];
+    } else if (res.status < 200 || res.status >= 300) {
+      throw Error("Fail to get searched posts information");
     }
     return res.json();
   });
@@ -112,7 +110,6 @@ export const getPost = () => {
   });
 };
 
-
 export const createPost = (data) => {
   const addPostUrl = "/addPost";
 
@@ -128,8 +125,7 @@ export const createPost = (data) => {
       throw Error("Fail to post an item");
     }
   });
-}
-
+};
 
 export const searchUserPosts = () => {
   const userPostUrl = "/user/fail1@gmail.com/post";
@@ -139,4 +135,4 @@ export const searchUserPosts = () => {
     }
     return response.json();
   });
-}
+};
