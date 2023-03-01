@@ -20,6 +20,9 @@ class CreatePostButton extends Component {
     };
   
     handleOk = () => {
+      this.setState({
+        confirmLoading: true,
+      })
       this.postForm
         .validateFields()
         .then((form) => {
@@ -27,9 +30,6 @@ class CreatePostButton extends Component {
           console.log(form);
           const { type, originFileObj } = uploadPost[0];
           const postType = type.match(/^(image)/g)[0];
-          this.setState({
-            isModalOpen: false
-          });
             createPost(form)
               .then(() => {
                 message.success("Successfully post an item for sell!");
@@ -71,7 +71,9 @@ class CreatePostButton extends Component {
             open={isModalOpen} 
             onOk={this.handleOk} 
             okText="Create"
-            onCancel={this.handleCancel}>
+            onCancel={this.handleCancel}
+            confirmLoading={confirmLoading}>
+            
           <PostForm ref={(refInstance) => (this.postForm = refInstance)}/>
         </Modal>
       </>
