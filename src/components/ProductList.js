@@ -6,6 +6,7 @@ import { searchPosts, sortPosts } from "../utils";
 import { SEARCH_KEY } from "../constants";
 import { Link } from "react-router-dom";
 import SortFeature from "./SortFeature";
+import FilterFeature from "./FilterFeature";
 
 const ProductList = () => {
   const [itemData, setItemData] = useState([]);
@@ -75,7 +76,7 @@ const ProductList = () => {
               <img
                 style={{ width: "100%", height: "250px" }}
                 alt={item.catagories}
-                src={item.image}
+                src={item.imageUrl}
               />
             </Link>
           }
@@ -103,7 +104,7 @@ const ProductList = () => {
   return (
     <div
       style={{
-        width: "90%",
+        width: "95%",
         margin: "3rem auto",
       }}
     >
@@ -113,27 +114,36 @@ const ProductList = () => {
         inputValue={inputValue}
         setInputValue={setInputValue}
       />
-
-      <SortFeature handleSort={handleSort} sortType={sort} />
+      <div className="sort-feature-container">
+        <SortFeature handleSort={handleSort} sortType={sort} />
+      </div>
       <hr></hr>
-      <br></br>
-      <div>
-        {loading ? (
-          <div style={{ textAlign: "center" }}>
-            <Spin size="large" />
-          </div>
-        ) : (
-          <Row gutter={[16, 16]}>
-            {itemData.length === 0 ? (
-              <div className="no-item-found-container">
-                <Typography.Text>No Item Found</Typography.Text>
+
+      <Row className="All">
+        <Col span={3} className="left-side">
+          <FilterFeature />
+        </Col>
+        <Col span={1}></Col>
+        <Col span={20} className="right-side">
+          <div>
+            {loading ? (
+              <div style={{ textAlign: "center" }}>
+                <Spin size="large" />
               </div>
             ) : (
-              renderCards
+              <Row gutter={[16, 16]}>
+                {itemData.length === 0 ? (
+                  <div className="no-item-found-container">
+                    <Typography.Text>No Item Found</Typography.Text>
+                  </div>
+                ) : (
+                  renderCards
+                )}
+              </Row>
             )}
-          </Row>
-        )}
-      </div>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

@@ -19,7 +19,8 @@ const SortFeature = (props) => {
   };
 
   return (
-    <div className="sort-feature-container">
+    // <div className="sort-feature-container">
+    <div style={{ justifyContent: "flex-end" }}>
       <Dropdown menu={menuProps} trigger="click">
         <Button shape="round" size="small">
           {props.sortType

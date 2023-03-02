@@ -16,9 +16,7 @@ const formItemLayout = {
   wrapperCol: {
     xs: { span: 24 },
     // form length
-    sm: { span: 16,
-      offset: 2,
-     },
+    sm: { span: 16, offset: 5 },
   },
 };
 const tailFormItemLayout = {
@@ -29,7 +27,7 @@ const tailFormItemLayout = {
     },
     sm: {
       span: 16,
-      offset: 2,
+      offset: 5,
     },
   },
 };
@@ -40,7 +38,7 @@ function Register(props) {
     signup(data)
       .then(() => {
         message.success("Registration succeed!");
-        props.history.push('/login');
+        props.history.push("/login");
       })
       .catch((err) => {
         message.error(err.message);

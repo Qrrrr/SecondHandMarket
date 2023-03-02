@@ -50,29 +50,30 @@ function TopBar(props) {
 
       {/*to login page*/}
       <Button
-        shape = "circle"
-        onClick = {() => {
+        shape="circle"
+        onClick={() => {
           history.push("/ChatRoom/public");
         }}
-        icon = {<MailOutlined/>}
-      >
-      </Button>
-      <CreatePostButton />
-      <MyCart className="myCart" />
+        icon={<MailOutlined />}
+      ></Button>
+      {isLoggedIn ? <CreatePostButton /> : null}
+      {isLoggedIn ? <MyCart className="myCart" /> : null}
 
       {/* this following is the code for the dropdown button for user icon */}
-      <Space direction="vertical">
-        <Space wrap>
-          <Dropdown
-            menu={{
-              items,
-            }}
-            placement="bottomLeft"
-          >
-            <Button shape="circle" icon={<UserOutlined />}></Button>
-          </Dropdown>
+      {isLoggedIn ? (
+        <Space direction="vertical">
+          <Space wrap>
+            <Dropdown
+              menu={{
+                items,
+              }}
+              placement="bottomLeft"
+            >
+              <Button shape="circle" icon={<UserOutlined />}></Button>
+            </Dropdown>
+          </Space>
         </Space>
-      </Space>
+      ) : null}
     </header>
   );
 }

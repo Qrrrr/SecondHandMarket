@@ -12,3 +12,9 @@
   color: #999;
   width: 100%;
 }
+
+.sort-feature-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
