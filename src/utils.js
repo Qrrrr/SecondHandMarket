@@ -147,3 +147,20 @@ export const sortPosts = (option) => {
     return res.json();
   });
 };
+
+export const review = (data) => {
+  return fetch('/review', {
+    // fetch = api from window object (浏览器提供的)
+    method: "POST",
+    headers: {
+      // request header
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),// 接受cookie to hold the token
+  }).then((response) => {
+    // fetch returns a object(response) that will have api: then (response may not be valid)
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to log in");
+    }
+  });
+};

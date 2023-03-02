@@ -28,6 +28,10 @@ function Main(props) {
     return isLoggedIn ? <ProductDetail /> : <Redirect to="/login" />;
   };
 
+  const showUserReview = () => {
+    return <Redirect to="/UserReviews"/>
+  }
+
   return (
     <div className="main">
       <Switch>
@@ -37,6 +41,7 @@ function Main(props) {
         <Route path="/home" render={showHome} />
         <Route path="/products/:productId" render={showProductDetail} />
         <Route path="/profile" render={showProfile} />
+        <Route path="/UserReviews" render={showUserReview}/>
       </Switch>
     </div>
   );
