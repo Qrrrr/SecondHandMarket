@@ -136,3 +136,14 @@ export const searchUserPosts = (data) => {
     return response.json();
   });
 };
+
+export const sortPosts = (option) => {
+  return fetch(`/products/sort/${option}`).then((res) => {
+    if (res.status === 204) {
+      return [];
+    } else if (res.status < 200 || res.status >= 300) {
+      throw Error("Fail to get searched posts information");
+    }
+    return res.json();
+  });
+};

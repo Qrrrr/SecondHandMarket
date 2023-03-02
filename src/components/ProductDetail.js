@@ -40,6 +40,7 @@ const ProductDetail = () => {
       .finally(setLoading(false));
   }, []);
 
+  console.log(itemData);
   const description = (itemData) => {
     return (
       <div>
