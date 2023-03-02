@@ -6,7 +6,7 @@ import Home from "./Home";
 import ProductDetail from "./ProductDetail";
 import UserProfile from "./UserProfile";
 import ChatRoom from "./ChatRoom";
-
+import UserReviews from "./UserReviews";
 
 function Main(props) {
   const { isLoggedIn, handleLoggedIn, userEmail, handleUserEmail } = props;
@@ -31,7 +31,7 @@ function Main(props) {
   };
 
   const showUserReview = () => {
-    return <Redirect to="/UserReviews"/>
+    return isLoggedIn ? <UserReviews/> : <Redirect to="/login" />;
   }
   const showChatRoom = () => {
     return <ChatRoom/>;

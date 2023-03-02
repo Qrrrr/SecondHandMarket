@@ -16,7 +16,9 @@ const formItemLayout = {
   wrapperCol: {
     xs: { span: 24 },
     // form length
-    sm: { span: 16 },
+    sm: { span: 16,
+      offset: 2,
+     },
   },
 };
 const tailFormItemLayout = {
@@ -27,7 +29,7 @@ const tailFormItemLayout = {
     },
     sm: {
       span: 16,
-      offset: 0,
+      offset: 2,
     },
   },
 };

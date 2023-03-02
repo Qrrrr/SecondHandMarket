@@ -2,6 +2,7 @@ import { Button, Drawer, List, message, Typography, Space } from "antd";
 import { useEffect, useState } from "react";
 import { checkout, getCart, deleteItemFromCart } from "../utils";
 import { ShoppingCartOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const { Text } = Typography;
 
@@ -36,6 +37,7 @@ const MyCart = () => {
       .then(() => {
         message.success("Successfully checkout");
         setOpen(false);
+        // <Link to="/UserReviews"></Link>
       })
       .catch((err) => {
         message.error(err.message);
@@ -96,7 +98,7 @@ const MyCart = () => {
                 loading={checking}
                 disabled={loading || cartData?.orderItemList.length === 0}
               >
-                Checkout
+                check out
               </Button>
             </div>
           </div>

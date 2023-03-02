@@ -5,23 +5,13 @@ import { useEffect, useState } from "react";
 import { review } from "../utils";
 
 function UserReviews(props) {
-  const [itemData, setItemData] = useState(["123@gmail.com", "333@gmail.com"]);
+  const [itemData, setItemData] = useState("");
   const [loading, setLoading] = useState(false);
 
-//   useEffect(() => {
-//     setLoading(true);
-//     searchUserPosts(userEmail)
-//       .then((data) => {
-//         console.log(data);
-//         setItemData(data);
-//       })
-//       .catch((err) => {
-//         message.error(err.message);
-//       })
-//       .finally(() => {
-//         setLoading(false);
-//       });
-//   }, []);
+  useEffect(() => {
+    setItemData(props)
+  }, []);
+
     const onFinish = (values) => {
         console.log(values);
         review(values) // api from utils.js
@@ -38,7 +28,7 @@ function UserReviews(props) {
         // one row = 24, each col = 6
         // using lg, md, xs, the col size changes when users shrinks the screen
         return (
-          <Col lg={6} md={8} xs={24}>
+          <Col lg={12} md={16} xs={24}>
             <Form onFinish={onFinish} 
             initialValues={{user: `${item}`}}
             >
