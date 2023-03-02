@@ -9,10 +9,11 @@ import axios from "axios";
 function UserProfile(props) {
   const [itemData, setItemData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const userEmail = props.userEmail;
 
   useEffect(() => {
     setLoading(true);
-    searchUserPosts()
+    searchUserPosts(userEmail)
       .then((data) => {
         console.log(data);
         setItemData(data);
@@ -93,7 +94,7 @@ function UserProfile(props) {
                     <Typography.Paragraph
                       ellipsis={{ rows: 1, expandable: true, symbol: "more" }}
                     >
-                      {item.description}
+                      {item.title}
                     </Typography.Paragraph>
                   </>
                 }

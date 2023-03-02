@@ -7,12 +7,12 @@ import ProductDetail from "./ProductDetail";
 import UserProfile from "./UserProfile";
 
 function Main(props) {
-  const { isLoggedIn, handleLoggedIn } = props;
+  const { isLoggedIn, handleLoggedIn, userEmail, handleUserEmail } = props;
   const showLogin = () => {
     return isLoggedIn ? (
       <Redirect to="/home" />
     ) : (
-      <Login handleLoggedIn={handleLoggedIn} />
+      <Login handleLoggedIn={handleLoggedIn} handleUserEmail={handleUserEmail}/>
     );
   };
   const showHome = () => {
@@ -21,7 +21,7 @@ function Main(props) {
 
   const showProfile = () => {
     console.log(`Main showProfile ${isLoggedIn}`);
-    return isLoggedIn ? <UserProfile /> : <Redirect to="/login" />;
+    return isLoggedIn ? <UserProfile userEmail={userEmail}/> : <Redirect to="/login" />;
   };
   const showProductDetail = () => {
     console.log(`Main showProductDetail ${isLoggedIn}`);

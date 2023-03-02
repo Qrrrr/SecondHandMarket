@@ -36,8 +36,8 @@ function SearchBar(props) {
   return (
     <div className="search-bar">
       <Search
-        placeholder={`input ${
-          searchType === SEARCH_KEY.keyword ? "search text" : "a zipcode"
+        placeholder={`please input ${
+          searchType === SEARCH_KEY.keyword ? "search text" : "a 5-digit zipcode"
         }`}
         enterButton="Search"
         size="large"

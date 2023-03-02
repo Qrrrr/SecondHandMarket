@@ -9,6 +9,7 @@ import { Redirect, Link } from "react-router-dom";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   const logout = () => {
     console.log("log out");
@@ -19,10 +20,14 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleUserEmail = (data) => {
+    setUserEmail(data);
+  }
+
   return (
     <div className="App">
       <TopBar isLoggedIn={isLoggedIn} handleLogout={logout} />
-      <Main isLoggedIn={isLoggedIn} handleLoggedIn={loginOnSuccess} />
+      <Main isLoggedIn={isLoggedIn} handleLoggedIn={loginOnSuccess} userEmail={userEmail} handleUserEmail={handleUserEmail}/>
     </div>
   );
 }

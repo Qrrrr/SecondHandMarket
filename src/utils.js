@@ -127,8 +127,8 @@ export const createPost = (data) => {
   });
 };
 
-export const searchUserPosts = () => {
-  const userPostUrl = "/user/fail1@gmail.com/post";
+export const searchUserPosts = (data) => {
+  const userPostUrl = `/user/${data}/post`;
   return fetch(userPostUrl).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get user posts");

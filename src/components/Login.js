@@ -7,9 +7,11 @@ import { login } from "../utils";
 import { BASE_URL } from "../constants";
 
 function Login(props) {
-  const { handleLoggedIn } = props;
+  const { handleLoggedIn,  handleUserEmail} = props;
 
   const onFinish = (values) => {
+    const {username} = values;
+    handleUserEmail(username);
     login(values) // api from utils.js
       .then(() => {
         message.success(`Login Successful`);
