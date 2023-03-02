@@ -5,6 +5,8 @@ import Register from "./Register";
 import Home from "./Home";
 import ProductDetail from "./ProductDetail";
 import UserProfile from "./UserProfile";
+import ChatRoom from "./ChatRoom";
+
 
 function Main(props) {
   const { isLoggedIn, handleLoggedIn, userEmail, handleUserEmail } = props;
@@ -28,6 +30,10 @@ function Main(props) {
     return isLoggedIn ? <ProductDetail /> : <Redirect to="/login" />;
   };
 
+  const showChatRoom = () => {
+    return <ChatRoom/>;
+  }
+
   return (
     <div className="main">
       <Switch>
@@ -37,6 +43,7 @@ function Main(props) {
         <Route path="/home" render={showHome} />
         <Route path="/products/:productId" render={showProductDetail} />
         <Route path="/profile" render={showProfile} />
+        <Route path="/chatroom/public" render={showChatRoom} /> 
       </Switch>
     </div>
   );

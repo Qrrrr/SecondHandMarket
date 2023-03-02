@@ -3,7 +3,7 @@ import MyCart from "./MyCart";
 import { Link, useHistory } from "react-router-dom";
 import { Button, Tooltip, Space, Dropdown } from "antd";
 import CreatePostButton from "./CreatePostButton";
-import { UserOutlined, HomeOutlined } from "@ant-design/icons";
+import { UserOutlined, HomeOutlined, MailOutlined } from "@ant-design/icons";
 
 function TopBar(props) {
   const { isLoggedIn, handleLogout, handleLoggedIn } = props;
@@ -49,6 +49,14 @@ function TopBar(props) {
       {/** */}
 
       {/*to login page*/}
+      <Button
+        shape = "circle"
+        onClick = {() => {
+          history.push("/ChatRoom/public");
+        }}
+        icon = {<MailOutlined/>}
+      >
+      </Button>
       <CreatePostButton />
       <MyCart className="myCart" />
 
