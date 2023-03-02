@@ -9,6 +9,7 @@ function SearchBar(props) {
   const [searchType, setSearchType] = useState(SEARCH_KEY.keyword);
   const [error, setError] = useState("");
   const [distance, setDistance] = useState("2");
+  // const [inputValue, setInputValue] = useState("");
 
   const changeSearchType = (e) => {
     // console.log("radio checked", e.target.value);
@@ -18,6 +19,7 @@ function SearchBar(props) {
     if (searchType === SEARCH_KEY.keyword) {
       setDistance("2");
     }
+    props.setInputValue("");
   };
 
   const handleSearch = (value) => {
@@ -43,6 +45,8 @@ function SearchBar(props) {
         size="large"
         onSearch={handleSearch}
         loading={props.loading}
+        onChange={(e) => props.setInputValue(e.target.value)}
+        value={props.inputValue}
       />
       <p className="error-msg">{error}</p>
       <Radio.Group

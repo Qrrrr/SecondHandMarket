@@ -8,3 +8,7 @@
 .post-tab-select {
   width: 90px;
 }
+
+.error-msg {
+  color: red;
+}

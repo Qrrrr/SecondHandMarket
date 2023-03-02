@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Typography, message, Spin } from "antd";
 import SearchBar from "./SearchBar";
-import { searchPosts } from "../utils";
+import { searchPosts, sortPosts } from "../utils";
 import { SEARCH_KEY } from "../constants";
 import { Link } from "react-router-dom";
+import SortFeature from "./SortFeature";
 
 const ProductList = () => {
   const [itemData, setItemData] = useState([]);
@@ -15,16 +16,39 @@ const ProductList = () => {
     input: "",
     distance: "",
   });
+  const [searchBarLoading, setSearchBarLoading] = useState(false);
+
+  const [sort, setSort] = useState("");
 
   const handleSearch = (option) => {
     // console.log({ option });
     const { type, input, distance } = option;
     setSearchOption({ type: type, input: input, distance: distance });
+    setSort("");
+  };
+
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSort = (type) => {
+    setLoading(true);
+    setSort(type);
+    setInputValue("");
+    sortPosts(type)
+      .then((data) => {
+        setItemData(data);
+      })
+      .catch((err) => {
+        message.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   // console.log(searchOption);
   useEffect(() => {
     setLoading(true);
+    setSearchBarLoading(true);
     searchPosts(searchOption)
       .then((data) => {
         setItemData(data);
@@ -34,6 +58,7 @@ const ProductList = () => {
       })
       .finally(() => {
         setLoading(false);
+        setSearchBarLoading(false);
       });
   }, [searchOption]);
 
@@ -76,9 +101,21 @@ const ProductList = () => {
   });
 
   return (
-    <div style={{ width: "90%", margin: "3rem auto" }}>
-      <SearchBar handleSearch={handleSearch} loading={loading} />
-      <br></br>
+    <div
+      style={{
+        width: "90%",
+        margin: "3rem auto",
+      }}
+    >
+      <SearchBar
+        handleSearch={handleSearch}
+        loading={searchBarLoading}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+      />
+
+      <SortFeature handleSort={handleSort} sortType={sort} />
+      <hr></hr>
       <br></br>
       <div>
         {loading ? (
