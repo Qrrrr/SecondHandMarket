@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col, Typography, message, Space, Button } from "antd";
+import { Card, Row, Col, Typography, message, Space, Button, Spin } from "antd";
 import { Link } from "react-router-dom";
 import { EditOutlined, EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
@@ -110,9 +110,15 @@ function UserProfile(props) {
         <Typography.Text strong>Listed Items:</Typography.Text>
       </div>
       <hr />
-      <div style={{ width: "80%", margin: "3rem auto" }}>
-        <Row gutter={[16, 16]}>{renderCards}</Row>
-      </div>
+      {loading ? (
+          <div style={{ textAlign: "center" }}>
+            <Spin size="large" />
+          </div>
+        ) : (
+          <div style={{ width: "80%", margin: "3rem auto" }}>
+            <Row gutter={[16, 16]}>{renderCards}</Row>
+          </div>
+        )}
     </>
   );
 }
