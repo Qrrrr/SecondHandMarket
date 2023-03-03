@@ -1,30 +1,49 @@
-const FilterFeature = () => {
-  //   const [checkedList, setCheckedList] = useState([]);
-  const catagories = [
-    { id: "1", value: "Javascript" },
-    { id: "2", value: "Python" },
-    { id: "3", value: "Java" },
-    { id: "4", value: "Kotlin" },
-    { id: "5", value: "Dart" },
-    { id: "6", value: "C#" },
+import { useState } from "react";
+
+const FilterFeature = (props) => {
+  const [checkedCategory, setCheckedCategory] = useState("all");
+  const categories = [
+    { id: "0", value: "all" },
+    { id: "1", value: "car" },
+    { id: "2", value: "phone" },
+    { id: "3", value: "furniture" },
+    { id: "4", value: "kitchenware" },
+    { id: "5", value: "...." },
+    { id: "6", value: "....." },
   ];
 
-  const handleCheck = (value) => {};
+  const handleCheck = (e) => {
+    const value = e.target.value;
+    if (checkedCategory === value) {
+      setCheckedCategory("all");
+      props.handleFilterCategory("all");
+    } else {
+      setCheckedCategory(value);
+      props.handleFilterCategory(value);
+    }
+  };
+  console.log(checkedCategory);
+
+  if (props.filterCat !== checkedCategory) {
+    setCheckedCategory("all");
+  }
   return (
     <div className="filter-feature-container">
-      <h2>Filter</h2>
+      {/* <h2>Filter</h2> */}
       <div>
-        <h3>catagories</h3>
-        <ul style={{ listStyleType: "none", padding: "10px" }}>
-          {catagories.map((item) => (
+        <h3 style={{ fontWeight: "bold", fontSize: "20px" }}>categories</h3>
+        <ul style={{ listStyleType: "none", padding: "0px" }}>
+          {categories.map((item) => (
             <li
-              key={catagories.id}
+              key={categories.id}
               style={{ display: "flex", alignItems: "center" }}
             >
               <input
                 type="checkbox"
-                checked={catagories.isChecked}
-                onChange={() => handleCheck(catagories.id)}
+                name="category"
+                onChange={handleCheck}
+                checked={props.filterCat === item.value}
+                value={item.value}
                 style={{ marginRight: "0.5rem" }}
               />
               {item.value}

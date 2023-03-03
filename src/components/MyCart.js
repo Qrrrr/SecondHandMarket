@@ -36,6 +36,7 @@ const MyCart = () => {
     setChecking(true);
     checkout()
       .then((response) => {
+        console.log(response);
         message.success("Successfully checkout");
         setOpen(false);
         setSellerData(response);
@@ -100,7 +101,7 @@ const MyCart = () => {
                 disabled={loading || cartData?.orderItemList.length === 0}
               >
                 check out
-                {/* <Link to="/UserReviews">check out</Link> */}
+                <Link to="/home"></Link>
               </Button>
             </div>
           </div>
