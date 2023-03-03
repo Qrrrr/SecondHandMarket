@@ -179,3 +179,20 @@ export const getPostByPostId = (postId) => {
   });
 };
 
+export const filterByCategory = (category) => {
+  let url = "";
+  if (category === "all") {
+    url = `/posts`;
+  } else {
+    url = `/products/filter/${category}`;
+  }
+
+  return fetch(url).then((res) => {
+    if (res.status === 204) {
+      return [];
+    } else if (res.status < 200 || res.status >= 300) {
+      throw Error("Fail to get searched posts information");
+    }
+    return res.json();
+  });
+};

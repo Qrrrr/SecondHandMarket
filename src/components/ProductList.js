@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Typography, message, Spin } from "antd";
 import SearchBar from "./SearchBar";
-import { searchPosts, sortPosts } from "../utils";
+import { searchPosts, sortPosts, filterByCategory } from "../utils";
 import { SEARCH_KEY } from "../constants";
 import { Link } from "react-router-dom";
 import SortFeature from "./SortFeature";
@@ -19,22 +19,40 @@ const ProductList = () => {
   });
   const [searchBarLoading, setSearchBarLoading] = useState(false);
 
-  const [sort, setSort] = useState("");
-
+  const [inputValue, setInputValue] = useState(""); // for reset searchBar input text only
   const handleSearch = (option) => {
     // console.log({ option });
     const { type, input, distance } = option;
     setSearchOption({ type: type, input: input, distance: distance });
     setSort("");
+    setFilterCat("all");
   };
 
-  const [inputValue, setInputValue] = useState("");
-
+  const [sort, setSort] = useState(""); // change sort type & reset sort type
   const handleSort = (type) => {
     setLoading(true);
     setSort(type);
     setInputValue("");
+    setFilterCat("all");
     sortPosts(type)
+      .then((data) => {
+        setItemData(data);
+      })
+      .catch((err) => {
+        message.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const [filterCat, setFilterCat] = useState("all");
+  const handleFilterCategory = (catagory) => {
+    setLoading(true);
+    setInputValue("");
+    setSort("");
+    setFilterCat(catagory);
+    filterByCategory(catagory)
       .then((data) => {
         setItemData(data);
       })
@@ -121,7 +139,10 @@ const ProductList = () => {
 
       <Row className="All">
         <Col span={3} className="left-side">
-          <FilterFeature />
+          <FilterFeature
+            handleFilterCategory={handleFilterCategory}
+            filterCat={filterCat}
+          />
         </Col>
         <Col span={1}></Col>
         <Col span={20} className="right-side">
