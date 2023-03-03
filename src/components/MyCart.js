@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { checkout, getCart, deleteItemFromCart } from "../utils";
 import { ShoppingCartOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const { Text } = Typography;
 
@@ -13,7 +14,7 @@ const MyCart = () => {
   const [checking, setChecking] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [sellerData, setSellerData] = useState("");
-
+  const history = useHistory();
   useEffect(() => {
     if (!open) {
       return;
@@ -39,6 +40,14 @@ const MyCart = () => {
         message.success("Successfully checkout");
         setOpen(false);
         setSellerData(response);
+        // navifate to userreviews with data
+        const dataToPass = {
+          sellerData: response,
+        };
+        history.push({
+          pathname: "/UserReviews",
+          state: dataToPass
+        });
       })
       .catch((err) => {
         message.error(err.message);
@@ -100,7 +109,6 @@ const MyCart = () => {
                 disabled={loading || cartData?.orderItemList.length === 0}
               >
                 check out
-                {/* <Link to="/UserReviews">check out</Link> */}
               </Button>
             </div>
           </div>

@@ -3,9 +3,11 @@ import { Card, Row, Col, Typography, message, Space, Button, Spin, Form } from "
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { review } from "../utils";
+import { useLocation } from "react-router-dom";
 
 function UserReviews(props) {
-  const [itemData, setItemData] = useState(["123@gmail.com", "456@gmail.com"]);
+  const location = useLocation();
+  const { sellerData } = location.state;
   const [loading, setLoading] = useState(false);
 
   // useEffect(() => {
@@ -24,7 +26,7 @@ function UserReviews(props) {
             .finally(() => {});
         };
 
-      const renderForms = itemData.map((item) => {
+      const renderForms = sellerData.map((item) => {
         // one row = 24, each col = 6
         // using lg, md, xs, the col size changes when users shrinks the screen
         return (
