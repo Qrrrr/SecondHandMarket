@@ -26,11 +26,22 @@ class CreatePostButton extends Component {
       this.postForm
         .validateFields()
         .then((form) => {
-          const { Category, Quantity, ItemName, ItemPrice, description, ZipCode, uploadPost } = form;
+          const { category, quantity, title, price, description, zipcode, file } = form;
           console.log(form);
-          const { type, originFileObj } = uploadPost[0];
+          const { type, originFileObj } = file[0];
           const postType = type.match(/^(image)/g)[0];
-            createPost(form)
+          if(postType){
+            const formData = new FormData();
+            formData.append("category", form.category);
+            formData.append("quantity", form.quantity);
+            formData.append("title", form.title);
+            formData.append("price", form.price);
+            formData.append("description", form.description);
+            formData.append("zipcode", form.zipcode);
+            formData.append("file", originFileObj);
+            // createPost(form)
+            console.log(formData);
+            createPost(formData)
               .then(() => {
                 message.success("Successfully post an item for sell!");
               })
@@ -45,7 +56,7 @@ class CreatePostButton extends Component {
             });  
    
             
-          //  }
+          }
         })
       
      };

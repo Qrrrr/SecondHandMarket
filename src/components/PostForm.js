@@ -94,9 +94,9 @@ export const PostForm = forwardRef((props, formRef) => {
                 <Input />
             </Form.Item>
             
-        <Form.Item label="Image">
+        <Form.Item label="image">
             <Form.Item
-                name="uploadPost"
+                name="file"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
                 noStyle

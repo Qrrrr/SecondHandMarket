@@ -21,7 +21,7 @@ export const login = (credential) => {
 
 export const signup = (data) => {
   const signupUrl = "/signup";
-  console.log(data);
+
   return fetch(signupUrl, {
     method: "POST",
     headers: {
@@ -115,10 +115,12 @@ export const createPost = (data) => {
 
   return fetch(addPostUrl, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
+    credentials: "include",
+    // body: JSON.stringify(data),
+    body: data,
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to post an item");
@@ -172,3 +174,4 @@ export const getPostByPostId = (postId) => {
     return response.json();
   });
 };
+
