@@ -58,11 +58,11 @@ function Register(props) {
         name="email"
         rules={[{ type: "email", required: true, message: "Please input a valid email!" }]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Email" />
+        <Input prefix={<UserOutlined />} placeholder="email" />
       </Form.Item>
 
       <Form.Item
-        name="firstName"
+        name="firstname"
         rules={[
           { required: true, message: "Please input your first name!" },
           {
@@ -75,7 +75,7 @@ function Register(props) {
       </Form.Item>
 
       <Form.Item
-        name="lastName"
+        name="lastname"
         rules={[          
           { required: true, message: "Please input your last name!" },
           {
@@ -114,7 +114,7 @@ function Register(props) {
       </Form.Item>
 
       <Form.Item
-        name="userName"
+        name="username"
         rules={[
           { 
           required: true, 

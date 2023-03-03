@@ -21,7 +21,7 @@ export const login = (credential) => {
 
 export const signup = (data) => {
   const signupUrl = "/signup";
-
+  console.log(data);
   return fetch(signupUrl, {
     method: "POST",
     headers: {
@@ -118,7 +118,6 @@ export const createPost = (data) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
     body: JSON.stringify(data),
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
