@@ -1,9 +1,9 @@
 .register {
-    width: 500px;
-    margin: 0 10cm;
-   }
-   
-   .register-btn {
-    width: 100%;
-    margin: 0 auto;
-   }
+  width: 500px;
+  margin: 0 auto;
+}
+
+.register-btn {
+  width: 100%;
+  margin: 0 auto;
+}

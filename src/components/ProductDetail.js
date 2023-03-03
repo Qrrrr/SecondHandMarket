@@ -1,8 +1,8 @@
-import { Row, Col, Button, Descriptions, message } from "antd";
+import { Row, Col, Button, Descriptions, message, Rate } from "antd";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import data from "../data";
-import { addItemToCart, getPost } from "../utils";
+import { addItemToCart, getPost, getPostByPostId } from "../utils";
 
 const AddToCartButton = (itemId) => {
   const [loading, setLoading] = useState(false);
@@ -31,10 +31,9 @@ const ProductDetail = () => {
 
   useEffect(() => {
     setLoading(true);
-    getPost()
-      .then((posts) => {
-        const targetPost = posts.find((post) => post.id == productId);
-        setItemData(targetPost);
+    getPostByPostId(productId)
+      .then((data) => {
+        setItemData(data);
       })
       .catch((error) => console.log(error))
       .finally(setLoading(false));
@@ -46,7 +45,24 @@ const ProductDetail = () => {
       <div>
         <Descriptions title={itemData.title}>
           <Descriptions.Item label="Email" span={3}>
-            {itemData.email}
+            {itemData.sellerEmail}
+          </Descriptions.Item>
+          <Descriptions.Item
+            label="Seller Rating"
+            span={3}
+            // style={{ display: "flex", justifyContent: "center" }}
+          >
+            {itemData.sellerRating === 0 ? (
+              <span>Seller has not been rated yet!</span>
+            ) : (
+              <Rate
+                value={itemData.sellerRating}
+                count={5}
+                disabled
+                allowHalf
+                style={{ fontSize: "85%" }}
+              />
+            )}
           </Descriptions.Item>
           <Descriptions.Item label="Price" span={3}>
             ${itemData.price}
@@ -80,7 +96,7 @@ const ProductDetail = () => {
         <Col span={1}></Col>
         <Col span={10}>
           <img
-            src={itemData.image}
+            src={itemData.imageUrl}
             alt={itemData.title}
             style={{ height: "100%", width: "100%", display: "block" }}
           />
