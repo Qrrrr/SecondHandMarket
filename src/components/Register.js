@@ -44,6 +44,7 @@ function Register(props) {
         message.error(err.message);
       });
   };
+  const phoneRegExp = /^[(]\d{3}[)]\d{3}[-]\d{4}$/;
 
   return (
     <Form
@@ -55,42 +56,76 @@ function Register(props) {
     >
       <Form.Item
         name="email"
-        rules={[{ required: true, message: "Please input your email!" }]}
+        rules={[{ type: "email", required: true, message: "Please input a valid email!" }]}
       >
         <Input prefix={<UserOutlined />} placeholder="Email" />
       </Form.Item>
 
       <Form.Item
         name="firstName"
-        rules={[{ required: true, message: "Please input your first name!" }]}
+        rules={[
+          { required: true, message: "Please input your first name!" },
+          {
+            max: 16,
+            message: "Sorry but the max length is 16"
+          }
+        ]}
       >
         <Input placeholder="firstname" />
       </Form.Item>
 
       <Form.Item
         name="lastName"
-        rules={[{ required: true, message: "Please input your last name!" }]}
+        rules={[          
+          { required: true, message: "Please input your last name!" },
+          {
+            max: 16,
+            message: "Sorry but the max length is 16"
+          }
+        ]}
       >
         <Input placeholder="lastname" />
       </Form.Item>
 
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[
+          { required: true, message: "Please input your password!" },
+          {
+            max: 16,
+            message: "Max length 200"
+          }
+        ]}
       >
         <Input prefix={<LockOutlined />} placeholder="Password" />
       </Form.Item>
 
       <Form.Item
         name="phone"
-        rules={[{ required: true, message: "Please input your phone!" }]}
+        rules={[
+          { required: true, message: "Please input your phone!" },
+          {
+            pattern: phoneRegExp,
+            message: 'Please enter phone number in the format of (xxx)xxx-xxxx'
+          },
+      ]}
       >
         <Input placeholder="phone" />
       </Form.Item>
 
       <Form.Item
         name="userName"
-        rules={[{ required: true, message: "Please input your userName!" }]}
+        rules={[
+          { 
+          required: true, 
+          message: "Please input your username!",
+          },
+          {
+            min: 6,
+            max: 10,
+            message: "Username length should be 6 - 10"
+          }
+      ]}
       >
         <Input placeholder="userName" />
       </Form.Item>
