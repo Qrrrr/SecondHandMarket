@@ -28,36 +28,31 @@ function TopBar(props) {
   ];
   return (
     <header className="App-header">
-      <Tooltip title="Home">
-        <Button
-          shape="circle"
-          icon={<HomeOutlined />}
-          onClick={() => {
-            history.push("/home");
+      <div className="App-title">
+        <Link
+          to="/home"
+          style={{
+            fontSize: 30,
+            fontWeight: "bold",
+            color: "black",
+            fontFamily: "Lobster, cursive",
           }}
         >
-          {/* on click go to the home page, not handling logged in */}
-        </Button>
-      </Tooltip>
-
-      <div className="App-title">
-        <Link to="/home">Second Hand Web</Link>
+          Second Hand Web
+        </Link>
       </div>
 
-      {/*to home page */}
-
-      {/** */}
-
-      {/*to login page*/}
       <Button
+        className="mail-btn"
         shape="circle"
+        size="large"
         onClick={() => {
           history.push("/ChatRoom/public");
         }}
         icon={<MailOutlined />}
       ></Button>
       {isLoggedIn ? <CreatePostButton /> : null}
-      {isLoggedIn ? <MyCart className="myCart" /> : null}
+      {isLoggedIn ? <MyCart /> : null}
 
       {/* this following is the code for the dropdown button for user icon */}
       {isLoggedIn ? (
@@ -69,7 +64,12 @@ function TopBar(props) {
               }}
               placement="bottomLeft"
             >
-              <Button shape="circle" icon={<UserOutlined />}></Button>
+              <Button
+                shape="circle"
+                className="user-btn"
+                size="large"
+                icon={<UserOutlined />}
+              ></Button>
             </Dropdown>
           </Space>
         </Space>

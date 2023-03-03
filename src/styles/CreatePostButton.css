@@ -1,0 +1,17 @@
+.post-btn {
+  color: black;
+  background-color: transparent;
+  border: none;
+  size: large;
+}
+
+.Button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.Button {
+  color: black;
+  background-color: transparent;
+  border: none;
+}

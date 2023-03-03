@@ -12,7 +12,6 @@ const MyCart = () => {
   const [cartData, setCartData] = useState();
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(false);
-  const [deleting, setDeleting] = useState(false);
   const [sellerData, setSellerData] = useState("");
   const history = useHistory();
   useEffect(() => {
@@ -67,22 +66,36 @@ const MyCart = () => {
   };
 
   const onDeleteItem = (itemId) => {
-    // setDeleting(true);
-    // deleteItemFromCart(itemId)
-    //   .then(() => {
-    //     message.success("Successfully delete");
-    //   })
-    //   .catch((err) => {
-    //     message.error(err.message);
-    //   })
-    //   .finally(() => {
-    //     setDeleting(false);
-    //   });
+    setLoading(true);
+    deleteItemFromCart(itemId)
+      .then(() => {
+        message.success("Successfully delete");
+        getCart()
+          .then((data) => {
+            setCartData(data);
+          })
+          .catch((err) => {
+            message.error(err.message);
+          })
+          .finally(() => {});
+      })
+      .catch((err) => {
+        message.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
     <>
-      <Button type="default" shape="circle" onClick={onOpenDrawer}>
+      <Button
+        type="default"
+        shape="circle"
+        onClick={onOpenDrawer}
+        className="cart-btn"
+        size="large"
+      >
         <ShoppingCartOutlined />
       </Button>
       <Drawer
@@ -110,7 +123,6 @@ const MyCart = () => {
                 disabled={loading || cartData?.orderItemList.length === 0}
               >
                 check out
-                <Link to="/home"></Link>
               </Button>
             </div>
           </div>
@@ -140,8 +152,7 @@ const MyCart = () => {
                 <div style={{ display: "flex", justifyContent: "right" }}>
                   <Button
                     type="text"
-                    onClick={onDeleteItem(item.id)}
-                    loading={deleting}
+                    onClick={() => onDeleteItem(item.id)}
                     icon={<DeleteOutlined />}
                   ></Button>
                 </div>
