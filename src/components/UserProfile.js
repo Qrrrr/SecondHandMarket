@@ -66,7 +66,7 @@ function UserProfile(props) {
                   <img
                     style={{ width: "100%", height: "250px" }}
                     alt={item.catagories}
-                    src={item.src}
+                    src={item.imageUrl}
                   />
                 </Link>
               }

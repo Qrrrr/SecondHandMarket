@@ -12,6 +12,7 @@ const MyCart = () => {
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [sellerData, setSellerData] = useState("");
 
   useEffect(() => {
     if (!open) {
@@ -34,10 +35,10 @@ const MyCart = () => {
   const onCheckOut = () => {
     setChecking(true);
     checkout()
-      .then(() => {
+      .then((response) => {
         message.success("Successfully checkout");
         setOpen(false);
-        // <Link to="/UserReviews"></Link>
+        setSellerData(response);
       })
       .catch((err) => {
         message.error(err.message);
@@ -99,6 +100,7 @@ const MyCart = () => {
                 disabled={loading || cartData?.orderItemList.length === 0}
               >
                 check out
+                {/* <Link to="/UserReviews">check out</Link> */}
               </Button>
             </div>
           </div>

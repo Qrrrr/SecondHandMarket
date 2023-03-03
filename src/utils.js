@@ -133,6 +133,8 @@ export const searchUserPosts = (data) => {
   return fetch(userPostUrl).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get user posts");
+    } else if (response.status === 204) {
+      return [];
     }
     return response.json();
   });

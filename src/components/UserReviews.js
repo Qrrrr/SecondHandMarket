@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import { review } from "../utils";
 
 function UserReviews(props) {
-  const [itemData, setItemData] = useState("");
+  const [itemData, setItemData] = useState(["123@gmail.com", "456@gmail.com"]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setItemData(props)
-  }, []);
+  // useEffect(() => {
+  //   setItemData(props)
+  // }, []);
 
     const onFinish = (values) => {
         console.log(values);
@@ -31,6 +31,16 @@ function UserReviews(props) {
           <Col lg={12} md={16} xs={24}>
             <Form onFinish={onFinish} 
             initialValues={{user: `${item}`}}
+            name="basic"
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            style={{
+              maxWidth: 600,
+            }}
             >
                 <Form.Item 
                 label="Seller"
@@ -44,7 +54,7 @@ function UserReviews(props) {
                         {
                             required: true,
                             message: "Please give a rating from 0 - 5",
-                            pattern:  "^([0-4](\.\d+)?|5(\.0+)?)$"
+                            pattern:  "^([0-4](\.[0-9]+)?|5(\.0+)?)$"
                         },
                     ]}
                 >
