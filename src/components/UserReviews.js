@@ -5,17 +5,20 @@ import { useEffect, useState } from "react";
 import { review } from "../utils";
 import { useLocation } from "react-router-dom";
 
-function UserReviews(props) {
+function UserReviews() {
   const location = useLocation();
   const { sellerData } = location.state;
   const [loading, setLoading] = useState(false);
+  const [ seller, setSeller] = useState(sellerData);
 
   // useEffect(() => {
   //   setItemData(props)
   // }, []);
 
     const onFinish = (values) => {
+        const remainSellers = seller.filter((item) => item !== values.sellerUserName);
         console.log(values);
+        setLoading(true);
         const formData = new FormData();
         formData.append("sellerUserName", values.sellerUserName);
         formData.append("rating", values.rating);
@@ -23,14 +26,17 @@ function UserReviews(props) {
         review(formData) // api from utils.js
             .then(() => {
             message.success(`Thank you for your feedback!`);
+            setSeller(remainSellers);
             })
             .catch((err) => {
             message.error(err.message);
             })
-            .finally(() => {});
+            .finally(() => {
+              setLoading(false);
+            });
         };
 
-      const renderForms = sellerData.map((sellername) => {
+      const renderForms = seller.map((sellername) => {
         // one row = 24, each col = 6
         // using lg, md, xs, the col size changes when users shrinks the screen
         return (
