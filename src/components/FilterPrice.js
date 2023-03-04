@@ -99,20 +99,20 @@ const FilterPrice = (props) => {
       <Divider style={{ height: "3px" }} />
 
       <div>
-        <h3 style={{ fontWeight: "bold", fontSize: "20px" }}>price</h3>
+        <h3 style={{ fontWeight: "bold", fontSize: "20px" }}>Price</h3>
         <Select
           shape="round"
           size="default"
           align="left"
           defaultValue="all"
-          style={{ maxWidt: "70%" }}
+          style={{ width: "120px" }}
           onChange={handlePrice}
         >
-          <Select.Option value="1">all</Select.Option>
+          <Select.Option value="1">All</Select.Option>
           <Select.Option value="2">$0 - $25</Select.Option>
           <Select.Option value="3">$25 - $50</Select.Option>
           <Select.Option value="4">$50 - $100</Select.Option>
-          <Select.Option value="5">$200 and above</Select.Option>
+          <Select.Option value="5">$200 +</Select.Option>
         </Select>
         <Button
           style={{ display: "flex", justifyContent: "center" }}
