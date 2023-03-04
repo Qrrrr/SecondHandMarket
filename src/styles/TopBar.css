@@ -1,30 +1,48 @@
 .App-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #282c34;
-    color: white;
-    height: 50px;
-  }
-  
-  .App-logo {
-    pointer-events: none;
-    height: 50px;
-  }
-  
-  .App-title {
-    flex: 1;
-    text-align: left;
-    margin-left: 20px;
-    font-weight: bold;
-    font-size: 17px;
-    color: #eef4f6;
-  }
-  
-  .logout {
-    font-size: 20px;
-    padding-right: 20px;
-  }
-  .myCart {
-    margin-right: 8px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #ffffffdc;
+  height: 75px;
+  border-bottom: 1px solid black;
+}
+
+.App-logo {
+  pointer-events: none;
+  height: 50px;
+}
+
+.App-title {
+  flex: 1;
+  text-align: left;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 30px;
+  font-style: italic;
+  color: black;
+  font-family: "Lobster", cursive;
+}
+
+.logout {
+  font-size: 20px;
+  padding-right: 20px;
+}
+
+.home-btn,
+.mail-btn,
+.user-btn {
+  color: black;
+  background-color: transparent;
+  border: none;
+}
+
+.Button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.Button {
+  color: black;
+  background-color: transparent;
+  border: none;
+}

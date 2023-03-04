@@ -98,7 +98,12 @@ const ProductDetail = () => {
           <img
             src={itemData.imageUrl}
             alt={itemData.title}
-            style={{ height: "100%", width: "100%", display: "block" }}
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+              border: "1px solid #ddd",
+              boxShadow: "0 100px 100px rgba(0, 0, 0, 0.1)",
+            }}
           />
         </Col>
         <Col span={2}></Col>

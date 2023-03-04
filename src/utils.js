@@ -1,4 +1,4 @@
-import { SEARCH_KEY } from "./constants";
+import { SEARCH_KEY, FILTER_KEY } from "./constants";
 
 export const login = (credential) => {
   const loginUrl = `/login?username=${credential.username}&password=${credential.password}`;
@@ -91,8 +91,8 @@ export const searchPosts = (option) => {
 };
 
 export const deleteItemFromCart = (itemId) => {
-  return fetch(`/updatecart/${itemId}`, {
-    method: "POST",
+  return fetch(`/deletefromcart/${itemId}`, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
@@ -189,6 +189,27 @@ export const filterByCategory = (category) => {
     url = `/posts`;
   } else {
     url = `/products/filter/${category}`;
+  }
+
+  return fetch(url).then((res) => {
+    if (res.status === 204) {
+      return [];
+    } else if (res.status < 200 || res.status >= 300) {
+      throw Error("Fail to get searched posts information");
+    }
+    return res.json();
+  });
+};
+
+export const filterpost = (option) => {
+  const { type, cateinput, min, max } = option;
+  let url = "";
+  if (type === FILTER_KEY.price) {
+    url = `/pricerange/${min},${max}`;
+  } else if (type === FILTER_KEY.category) {
+    url = `/products/filter/${cateinput}`;
+  } else if (type === FILTER_KEY.all) {
+    url = `/posts`;
   }
 
   return fetch(url).then((res) => {

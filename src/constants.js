@@ -10,4 +10,5 @@ export const FILTER_KEY = {
   all: 0,
   catagory: 1,
   price: 2,
+  rating: 3,
 };

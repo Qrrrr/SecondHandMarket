@@ -18,3 +18,13 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+.filter-feature-container {
+  border-style: solid;
+  border-color: gray;
+  border-width: 1px;
+  border-radius: 5px;
+  text-align: left;
+  margin: 10px;
+  padding-left: 5px;
+}

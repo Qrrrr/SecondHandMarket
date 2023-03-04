@@ -2,11 +2,12 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Typography, message, Spin } from "antd";
 import SearchBar from "./SearchBar";
-import { searchPosts, sortPosts, filterByCategory } from "../utils";
-import { SEARCH_KEY } from "../constants";
+import { searchPosts, sortPosts, filterByCategory, filterpost } from "../utils";
+import { SEARCH_KEY, FILTER_KEY } from "../constants";
 import { Link } from "react-router-dom";
 import SortFeature from "./SortFeature";
-import FilterFeature from "./FilterFeature";
+import FilterCategory from "./FilterCategory";
+import FilterPrice from "./FilterPrice";
 
 const ProductList = () => {
   const [itemData, setItemData] = useState([]);
@@ -63,6 +64,33 @@ const ProductList = () => {
         setLoading(false);
       });
   };
+
+  // filter
+  const [filterOption, setfilterOption] = useState({
+    type: FILTER_KEY.all,
+    cateinput: "",
+    min: "",
+    max: "",
+  });
+
+  const handleFilter = (option) => {
+    const { type, cateinput, min, max } = option;
+    setfilterOption({ type: type, cateinput: cateinput, min: min, max: max });
+  };
+  const filtertriger = (filterOption) => {
+    setLoading(true);
+    filterpost(filterOption)
+      .then((data) => {
+        setItemData(data);
+      })
+      .catch((err) => {
+        message.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  //
 
   // console.log(searchOption);
   useEffect(() => {
@@ -139,10 +167,17 @@ const ProductList = () => {
 
       <Row className="All">
         <Col span={3} className="left-side">
-          <FilterFeature
-            handleFilterCategory={handleFilterCategory}
-            filterCat={filterCat}
-          />
+          <div className="filter-feature-container">
+            <FilterCategory
+              handleFilterCategory={handleFilterCategory}
+              filterCat={filterCat}
+            />
+            <FilterPrice
+              handleFilter={handleFilter}
+              filtertriger={filtertriger}
+              filterOption={filterOption}
+            />
+          </div>
         </Col>
         <Col span={1}></Col>
         <Col span={20} className="right-side">
