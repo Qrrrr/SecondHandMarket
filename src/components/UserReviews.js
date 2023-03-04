@@ -16,7 +16,11 @@ function UserReviews(props) {
 
     const onFinish = (values) => {
         console.log(values);
-        review(values) // api from utils.js
+        const formData = new FormData();
+        formData.append("sellerUserName", values.sellerUserName);
+        formData.append("rating", values.rating);
+        formData.append("comment", values.comment);
+        review(formData) // api from utils.js
             .then(() => {
             message.success(`Thank you for your feedback!`);
             })
@@ -26,13 +30,13 @@ function UserReviews(props) {
             .finally(() => {});
         };
 
-      const renderForms = sellerData.map((item) => {
+      const renderForms = sellerData.map((sellername) => {
         // one row = 24, each col = 6
         // using lg, md, xs, the col size changes when users shrinks the screen
         return (
           <Col lg={12} md={16} xs={24}>
             <Form onFinish={onFinish} 
-            initialValues={{user: `${item}`}}
+            initialValues={{sellerUserName: sellername}}
             name="basic"
             labelCol={{
               span: 8,
@@ -46,9 +50,10 @@ function UserReviews(props) {
             >
                 <Form.Item 
                 label="Seller"
-                name="user"
+                name="sellerUserName"
+                initialValue={`${sellername}`}
                 >
-                {`${item}`}
+                <input/>
                 </Form.Item>
 
                 <Form.Item label="ratings" name="rating"
