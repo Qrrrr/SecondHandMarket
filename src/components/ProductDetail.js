@@ -1,6 +1,6 @@
 import { Row, Col, Button, Descriptions, message, Rate } from "antd";
 import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import data from "../data";
 import { addItemToCart, getPost, getPostByPostId } from "../utils";
 
@@ -25,21 +25,10 @@ const AddToCartButton = (itemId) => {
 };
 
 const ProductDetail = () => {
-  const { productId } = useParams(); // object of K/V from url
-  const [itemData, setItemData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const itemData = location.state.item;
 
-  useEffect(() => {
-    setLoading(true);
-    getPostByPostId(productId)
-      .then((data) => {
-        setItemData(data);
-      })
-      .catch((error) => console.log(error))
-      .finally(setLoading(false));
-  }, []);
-
-  console.log(itemData);
   const description = (itemData) => {
     return (
       <div>

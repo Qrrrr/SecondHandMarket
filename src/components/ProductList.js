@@ -10,7 +10,7 @@ import {
   filterByRating,
 } from "../utils";
 import { SEARCH_KEY, FILTER_KEY } from "../constants";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SortFeature from "./SortFeature";
 import FilterCategory from "./FilterCategory";
 import FilterPrice from "./FilterPrice";
@@ -138,6 +138,14 @@ const ProductList = () => {
       });
   }, [searchOption]);
 
+  const history = useHistory();
+  const toDetailPage = (item) => {
+    history.push({
+      pathname: `/products/${item.id}`,
+      state: { item },
+    });
+  };
+
   // console.log(itemData);
   const renderCards = itemData.map((item) => {
     // one row = 24, each col = 6
@@ -147,14 +155,13 @@ const ProductList = () => {
         <Card
           hoverable
           cover={
-            <Link to={`/products/${item.id}`}>
-              <img
-                style={{ width: "100%", height: "250px" }}
-                alt={item.catagories}
-                src={item.imageUrl}
-              />
-            </Link>
+            <img
+              style={{ width: "100%", height: "250px" }}
+              alt={item.catagories}
+              src={item.imageUrl}
+            />
           }
+          onClick={() => toDetailPage(item)}
           bordered={false}
         >
           <Card.Meta
