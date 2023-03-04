@@ -2,12 +2,19 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Typography, message, Spin } from "antd";
 import SearchBar from "./SearchBar";
-import { searchPosts, sortPosts, filterByCategory, filterpost } from "../utils";
+import {
+  searchPosts,
+  sortPosts,
+  filterByCategory,
+  filterpost,
+  filterByRating,
+} from "../utils";
 import { SEARCH_KEY, FILTER_KEY } from "../constants";
 import { Link } from "react-router-dom";
 import SortFeature from "./SortFeature";
 import FilterCategory from "./FilterCategory";
 import FilterPrice from "./FilterPrice";
+import FilterRating from "./FilterRating";
 
 const ProductList = () => {
   const [itemData, setItemData] = useState([]);
@@ -27,6 +34,7 @@ const ProductList = () => {
     setSearchOption({ type: type, input: input, distance: distance });
     setSort("");
     setFilterCat("all");
+    setFilterRating("0");
   };
 
   const [sort, setSort] = useState(""); // change sort type & reset sort type
@@ -35,6 +43,7 @@ const ProductList = () => {
     setSort(type);
     setInputValue("");
     setFilterCat("all");
+    setFilterRating("0");
     sortPosts(type)
       .then((data) => {
         setItemData(data);
@@ -47,12 +56,14 @@ const ProductList = () => {
       });
   };
 
+  // filter by category
   const [filterCat, setFilterCat] = useState("all");
   const handleFilterCategory = (catagory) => {
     setLoading(true);
     setInputValue("");
     setSort("");
     setFilterCat(catagory);
+    setFilterRating("0");
     filterByCategory(catagory)
       .then((data) => {
         setItemData(data);
@@ -65,7 +76,7 @@ const ProductList = () => {
       });
   };
 
-  // filter
+  // filter by price
   const [filterOption, setfilterOption] = useState({
     type: FILTER_KEY.all,
     cateinput: "",
@@ -90,7 +101,25 @@ const ProductList = () => {
         setLoading(false);
       });
   };
-  //
+
+  // filter by rating
+  const [filterRating, setFilterRating] = useState("0");
+  const handleFilterRating = (rating) => {
+    setLoading(true);
+    setInputValue("");
+    setSort("");
+    setFilterRating(rating);
+    filterByRating(rating)
+      .then((data) => {
+        setItemData(data);
+      })
+      .catch((err) => {
+        message.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   // console.log(searchOption);
   useEffect(() => {
@@ -172,10 +201,15 @@ const ProductList = () => {
               handleFilterCategory={handleFilterCategory}
               filterCat={filterCat}
             />
+
             <FilterPrice
               handleFilter={handleFilter}
               filtertriger={filtertriger}
               filterOption={filterOption}
+            />
+            <FilterRating
+              handleFilterRating={handleFilterRating}
+              filterRating={filterRating}
             />
           </div>
         </Col>

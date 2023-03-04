@@ -165,7 +165,6 @@ export const review = (data) => {
     // body: JSON.stringify(data), // 接受cookie to hold the token
     body: data,
     credentials: "include",
-
   }).then((response) => {
     // fetch returns a object(response) that will have api: then (response may not be valid)
     if (response.status < 200 || response.status >= 300) {
@@ -177,7 +176,7 @@ export const review = (data) => {
 export const getPostByPostId = (postId) => {
   return fetch(`/user/post/${postId}`).then((response) => {
     if (response.status < 200 || response.status >= 300) {
-      throw Error("Fail to get all posts");
+      throw Error("Fail to get post by id");
     }
     return response.json();
   });
@@ -219,5 +218,16 @@ export const filterpost = (option) => {
       throw Error("Fail to get searched posts information");
     }
     return res.json();
+  });
+};
+
+export const filterByRating = (minRating) => {
+  return fetch(`/filterBySellerRating/${minRating}`).then((response) => {
+    if (response.status === 204) {
+      return [];
+    } else if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to filter all posts by rating");
+    }
+    return response.json();
   });
 };
