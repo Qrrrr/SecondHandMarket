@@ -8,6 +8,7 @@ import {
   filterByCategory,
   filterpost,
   filterByRating,
+  getPost,
 } from "../utils";
 import { SEARCH_KEY, FILTER_KEY } from "../constants";
 import { Link, useHistory } from "react-router-dom";
@@ -44,9 +45,15 @@ const ProductList = () => {
     setInputValue("");
     setFilterCat("all");
     setFilterRating("0");
-    sortPosts(type)
+    getPost()
       .then((data) => {
-        setItemData(data);
+        if (type === "pricehightolow") {
+          const filteredData = data.sort((a, b) => b.price - a.price);
+          setItemData(filteredData);
+        } else {
+          const filteredData = data.sort((a, b) => a.price - b.price);
+          setItemData(filteredData);
+        }
       })
       .catch((err) => {
         message.error(err.message);
@@ -64,9 +71,16 @@ const ProductList = () => {
     setSort("");
     setFilterCat(catagory);
     setFilterRating("0");
-    filterByCategory(catagory)
+    getPost()
       .then((data) => {
-        setItemData(data);
+        if (catagory === "all") {
+          setItemData(data);
+        } else {
+          const filteredData = data.filter(
+            (item) => item.category === catagory
+          );
+          setItemData(filteredData);
+        }
       })
       .catch((err) => {
         message.error(err.message);
@@ -90,6 +104,10 @@ const ProductList = () => {
   };
   const filtertriger = (filterOption) => {
     setLoading(true);
+    setInputValue("");
+    setSort("");
+    setFilterRating("0");
+    setFilterCat("all");
     filterpost(filterOption)
       .then((data) => {
         setItemData(data);
@@ -109,9 +127,11 @@ const ProductList = () => {
     setInputValue("");
     setSort("");
     setFilterRating(rating);
-    filterByRating(rating)
+    setFilterCat("all");
+    getPost()
       .then((data) => {
-        setItemData(data);
+        const filteredData = data.filter((item) => item.sellerRating >= rating);
+        setItemData(filteredData);
       })
       .catch((err) => {
         message.error(err.message);
